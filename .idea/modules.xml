@@ -3,10 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Qart.iml" filepath="$PROJECT_DIR$/Qart.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/cropper/cropper.iml" filepath="$PROJECT_DIR$/cropper/cropper.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
-      <module fileurl="file://$PROJECT_DIR$/onboarder/onboarder.iml" filepath="$PROJECT_DIR$/onboarder/onboarder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Qart.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Qart.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cropper/Qart.cropper.iml" filepath="$PROJECT_DIR$/.idea/modules/cropper/Qart.cropper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/Qart.library.iml" filepath="$PROJECT_DIR$/.idea/modules/library/Qart.library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/onboarder/Qart.onboarder.iml" filepath="$PROJECT_DIR$/.idea/modules/onboarder/Qart.onboarder.iml" />
     </modules>
   </component>
 </project>

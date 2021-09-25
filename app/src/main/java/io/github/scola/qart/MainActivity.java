@@ -1,6 +1,7 @@
 package io.github.scola.qart;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -19,9 +20,10 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBarActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -65,7 +67,7 @@ import io.github.scola.gif.AnimatedGifEncoder;;
 import pl.droidsonroids.gif.GifDrawable;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
     private final static String TAG = "MainActivity";
     private final static int REQUEST_PICK_IMAGE = 1;
     private final static int REQUEST_SEND_QR_TEXT = 2;
@@ -164,7 +166,7 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v){
                 String txt = mEditTextView.getText().toString().trim();
-                if (txt.isEmpty() == false) {
+                if (!txt.isEmpty()) {
                     saveQrText(txt);
                     View view = MainActivity.this.getCurrentFocus();
                     if (view != null) {
@@ -181,7 +183,7 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View v){
                 String[] items = getResources().getStringArray(R.array.read_scan_qr);
 
-                android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(MainActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle(R.string.scan_or_read);
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
@@ -527,6 +529,7 @@ public class MainActivity extends ActionBarActivity {
         startActivityForResult(photoPickerIntent, request);
     }
 
+    @SuppressLint("StaticFieldLeak")
     private void startConvert(final boolean colorful, final int color) {
         mConverting = true;
         if (mCurrentMode == NORMAL_MODE) {
@@ -541,7 +544,7 @@ public class MainActivity extends ActionBarActivity {
                 if (mGif) {
                     QRGifArray = CuteR.ProductGIF(qrText, gifArray, colorful, color);
                     shareQr = new File(getExternalCacheDir(), "Pictures");
-                    if (shareQr.exists() == false) {
+                    if (!shareQr.exists()) {
                         shareQr.mkdirs();
                     }
 

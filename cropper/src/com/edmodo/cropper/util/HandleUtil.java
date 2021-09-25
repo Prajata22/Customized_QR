@@ -14,7 +14,8 @@
 package com.edmodo.cropper.util;
 
 import android.graphics.PointF;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 import com.edmodo.cropper.cropwindow.handle.Handle;
 

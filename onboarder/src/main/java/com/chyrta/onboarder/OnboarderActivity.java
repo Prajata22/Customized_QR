@@ -1,15 +1,17 @@
 package com.chyrta.onboarder;
 
 import android.animation.ArgbEvaluator;
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
-import android.support.annotation.StringRes;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
+
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +20,7 @@ import android.widget.ImageButton;
 
 import com.chyrta.onboarder.utils.ColorsArrayBuilder;
 import com.chyrta.onboarder.views.CircleIndicatorView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -114,6 +117,7 @@ public abstract class OnboarderActivity extends AppCompatActivity implements Vie
         this.btnFinish.setText(titleResId);
     }
 
+    @SuppressLint("RestrictedApi")
     public void shouldUseFloatingActionButton(boolean shouldUseFloatingActionButton) {
 
         this.shouldUseFloatingActionButton = shouldUseFloatingActionButton;
