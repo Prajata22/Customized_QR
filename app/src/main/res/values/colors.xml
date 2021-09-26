@@ -10,4 +10,17 @@
     <color name="white">#FFFFFF</color>
     <color name="text_primary">#df000000</color>
     <color name="guide_bg">#263238</color>
+
+    <color name="qr_color">#730D4F</color>
+
+<!--    <color name="qr_start_color">#F27121</color>-->
+<!--    <color name="qr_middle_color">#E94057</color>-->
+<!--    <color name="qr_end_color">#8A2387</color>-->
+
+    <color name="qr_start_color">#FB9C0D</color>
+    <color name="qr_middle_color">#F27121</color>
+    <color name="qr_end_color">#E94057</color>
+
+
+
 </resources>

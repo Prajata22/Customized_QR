@@ -533,7 +533,7 @@ public class MainActivity extends AppCompatActivity {
     private void startConvert(final boolean colorful, final int color) {
         mConverting = true;
         if (mCurrentMode == NORMAL_MODE) {
-            mQRBitmap = CuteR.ProductNormal(qrText, colorful, color);
+            mQRBitmap = CuteR.ProductNormal(MainActivity.this, qrText, colorful, color);
             pickPhoto.setImageBitmap(mQRBitmap);
             mConverting = false;
             return;
@@ -573,7 +573,7 @@ public class MainActivity extends AppCompatActivity {
                             mQRBitmap = CuteR.Product(qrText, mCropImage, colorful, color);
                             break;
                         case LOGO_MODE:
-                            mQRBitmap = CuteR.ProductLogo(mCropImage, qrText, colorful, color);
+                            mQRBitmap = CuteR.ProductLogo(MainActivity.this, mCropImage, qrText, colorful, color);
                             break;
                         case EMBED_MODE:
                             mQRBitmap = CuteR.ProductEmbed(qrText, mCropImage, colorful, color, mCropSize.x, mCropSize.y, mOriginBitmap);
@@ -962,7 +962,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        Bitmap checkTextBitmap = CuteR.ProductNormal(txt, false, Color.BLACK);
+        Bitmap checkTextBitmap = CuteR.ProductNormal(MainActivity.this,txt, false, Color.BLACK);
         if (checkTextBitmap == null) {
             Toast.makeText(this, _(R.string.text_too_long), Toast.LENGTH_LONG).show();
             return;
@@ -1113,7 +1113,7 @@ public class MainActivity extends AppCompatActivity {
             case NORMAL_MODE:
                 hideGalleryMenu();
                 hideQrMenu();
-                mQRBitmap = CuteR.ProductNormal(qrText, false, Color.BLACK);
+                mQRBitmap = CuteR.ProductNormal(MainActivity.this, qrText, false, Color.BLACK);
                 pickPhoto.setImageBitmap(mQRBitmap);
                 pickPhoto.setShowSelectFrame(false);
                 showSaveMenu();

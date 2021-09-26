@@ -1,5 +1,6 @@
 package io.github.scola.cuteqr;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,6 +9,8 @@ import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.util.Log;
+
+import androidx.core.content.ContextCompat;
 
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.DecodeHintType;
@@ -27,6 +30,8 @@ import com.google.zxing.qrcode.encoder.QRCode;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
+
+import io.github.scola.qart.R;
 
 
 /**
@@ -58,9 +63,9 @@ public class CuteR {
             Log.e(TAG, "encodeAsBitmap: " + e);
         }
 
-        if (colorful && color != Color.BLACK) {
-            QRImage = replaceColor(QRImage, color);
-        }
+//        if (colorful && color != Color.BLACK) {
+//            QRImage = replaceColor(QRImage, color);
+//        }
 
         int inputSize = Math.max(input.getWidth(), input.getHeight());
         int scale = (int)Math.ceil(1.0 * inputSize / QRImage.getWidth());
@@ -167,7 +172,7 @@ public class CuteR {
         return qrBitmap;
     }
 
-    public static Bitmap ProductNormal(String txt, boolean colorful, int color) {
+    public static Bitmap ProductNormal(Context context, String txt, boolean colorful, int color) {
         Bitmap QRImage = null;
         try {
             QRImage = encodeAsBitmap(txt);
@@ -177,7 +182,7 @@ public class CuteR {
         }
 
         if (colorful && color != Color.BLACK) {
-            QRImage = replaceColor(QRImage, color);
+            QRImage = replaceColor(context, QRImage, color);
         }
         return Bitmap.createScaledBitmap(QRImage, QRImage.getWidth() * SCALE_NORMAL_QR, QRImage.getHeight() * SCALE_NORMAL_QR, false);
     }
@@ -193,8 +198,8 @@ public class CuteR {
         return Bitmap.createScaledBitmap(QRImage, QRImage.getWidth() * SCALE_NORMAL_QR, QRImage.getHeight() * SCALE_NORMAL_QR, false);
     }
 
-    public static Bitmap ProductLogo(Bitmap logo, String txt, boolean colorful, int color) {
-        Bitmap qrImage = ProductNormal(txt, colorful, color);
+    public static Bitmap ProductLogo(Context context, Bitmap logo, String txt, boolean colorful, int color) {
+        Bitmap qrImage = ProductNormal(context, txt, colorful, ContextCompat.getColor(context, R.color.qr_color));
         int fullSize = qrImage.getWidth() - 4 * 2 * SCALE_NORMAL_QR;
         int finalSize = (int) (logo.getWidth() * FULL_LOGO_QR / LOGO_SIZE);
         finalSize = Math.min(finalSize, MAX_LOGO_SIZE);
@@ -306,20 +311,65 @@ public class CuteR {
         return output;
     }
 
-    public static Bitmap replaceColor(Bitmap qrBitmap, int color) {
-        int [] allpixels = new int [qrBitmap.getHeight()*qrBitmap.getWidth()];
+    public static Bitmap replaceColor(Context context, Bitmap qrBitmap, int color) {
 
-        qrBitmap.getPixels(allpixels, 0, qrBitmap.getWidth(), 0, 0, qrBitmap.getWidth(), qrBitmap.getHeight());
-
-        for(int i = 0; i < allpixels.length; i++)
-        {
-            if(allpixels[i] == Color.BLACK)
-            {
-                allpixels[i] = color;
+        for (int i = 0; i < qrBitmap.getHeight() / 1.6; i++) {
+            for (int j = 0; j < (qrBitmap.getWidth() / 1.6) - i; j++) {
+                if(qrBitmap.getPixel(i, j) == Color.BLACK) {
+                    qrBitmap.setPixel(i, j, ContextCompat.getColor(context, R.color.qr_start_color));
+                }
             }
         }
 
-        qrBitmap.setPixels(allpixels, 0, qrBitmap.getWidth(), 0, 0, qrBitmap.getWidth(), qrBitmap.getHeight());
+        int c = 0;
+        for (int i = (int) (qrBitmap.getHeight() / 2.4); i < qrBitmap.getHeight(); i++) {
+            for (int j = qrBitmap.getWidth() - c; j < qrBitmap.getWidth(); j++) {
+                if(qrBitmap.getPixel(i, j) == Color.BLACK) {
+                    qrBitmap.setPixel(i, j, ContextCompat.getColor(context, R.color.qr_end_color));
+                }
+            }
+            c++;
+        }
+
+        for (int i = 0; i < qrBitmap.getHeight(); i++) {
+            for (int j = 0; j < qrBitmap.getWidth(); j++) {
+                if(qrBitmap.getPixel(i, j) == Color.BLACK) {
+                    qrBitmap.setPixel(i, j, ContextCompat.getColor(context, R.color.qr_middle_color));
+                }
+            }
+        }
+
+//        int [] allpixels = new int [qrBitmap.getHeight()*qrBitmap.getWidth()];
+//
+//        qrBitmap.getPixels(allpixels, 0, qrBitmap.getWidth(), 0, 0, qrBitmap.getWidth(), qrBitmap.getHeight());
+//
+//        for(int i = 0; i < allpixels.length; i++) {
+//            if(allpixels[i] == Color.BLACK) {
+//                Log.i("BAM", "hi");
+//                allpixels[i] = ContextCompat.getColor(context, R.color.qr_middle_color);
+//            }
+//        }
+//
+//        for(int i = 0; i < allpixels.length/3; i++)
+//        {
+//            if(allpixels[i] == Color.BLACK) {
+//                allpixels[i] = ContextCompat.getColor(context, R.color.qr_start_color);
+//            }
+//        }
+//        for(int i = allpixels.length/3; i < (allpixels.length*2)/3; i++)
+//        {
+//            if(allpixels[i] == Color.BLACK) {
+//                allpixels[i] = ContextCompat.getColor(context, R.color.qr_middle_color);
+//            }
+//        }
+//        for(int i = (allpixels.length*2)/3; i < allpixels.length; i++)
+//        {
+//            if(allpixels[i] == Color.BLACK) {
+//                allpixels[i] = ContextCompat.getColor(context, R.color.qr_end_color);
+//            }
+//        }
+//
+//        qrBitmap.setPixels(allpixels, 0, qrBitmap.getWidth(), 0, 0, qrBitmap.getWidth(), qrBitmap.getHeight());
         return qrBitmap;
     }
 
