@@ -1,3 +1,5 @@
+> **Note:** This repository is based on [scola/Qart](https://github.com/scola/Qart) by its original authors and is kept here for reference. Credit and licence belong to the original project; use the original for the current version.
+
 Qart
 =======================
 Qart is Android App that's based on [CuteR](https://github.com/chinuno-usami/CuteR) project. App generate QR code that merge a picture. So the QR code looks more beautiful.
